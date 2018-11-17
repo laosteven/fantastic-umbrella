@@ -1,8 +1,8 @@
 export default {
-  apiKey: 'AIzaSyAHshJehJ-E_9AoUN3kfY8BLvZtFoXxFto',
-  authDomain: 'react-native-starter-app.firebaseapp.com',
-  databaseURL: 'https://react-native-starter-app.firebaseio.com',
-  projectId: 'react-native-starter-app',
-  storageBucket: 'react-native-starter-app.appspot.com',
-  messagingSenderId: '762822550667',
+  apiKey: "AIzaSyDE6mfEdVZk7ag8xyQiBFzC6AkWMmUa_J0",
+  authDomain: "fantastic-umbrella.firebaseapp.com",
+  databaseURL: "https://fantastic-umbrella.firebaseio.com",
+  projectId: "fantastic-umbrella",
+  storageBucket: "fantastic-umbrella.appspot.com",
+  messagingSenderId: "544890840729"
 };
