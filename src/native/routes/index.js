@@ -27,7 +27,7 @@ import UpdateProfileComponent from '../components/UpdateProfile';
 import MemberContainer from '../../containers/Member';
 import ProfileComponent from '../components/Profile';
 
-import AboutComponent from '../components/About';
+import TipsComponent from '../components/Tips';
 import CameraComponent from '../components/Camera';
 
 const Index = (
@@ -50,12 +50,12 @@ const Index = (
         </Stack>
 
         <Stack
-          key="recipes"
-          title="RECIPES"
+          key="tips"
+          title="TIPS"
           icon={() => <Icon name="book" {...DefaultProps.icons} />}
           {...DefaultProps.navbarProps}
         >
-          <Scene key="recipes" component={RecipesContainer} Layout={RecipesComponent} />
+          <Scene key="recipes" component={TipsComponent} />
         </Stack>
 
         <Stack
