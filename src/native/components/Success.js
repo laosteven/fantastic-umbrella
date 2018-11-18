@@ -1,48 +1,83 @@
-import React from 'react';
-import {
-  Container, Content, Text, H1, H2, H3,
-} from 'native-base';
-import Spacer from './Spacer';
+import Expo from 'expo';
+import * as ExpoPixi from 'expo-pixi';
+import React, { Component } from 'react';
+import { Image, StyleSheet, View, Text, TextInput, Button } from 'react-native';
+import { Container } from 'native-base';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  sketch: {
+    height: '50%',
+    backgroundColor: 'white'
+  },
+  image: {
+    height: '50%',
+    backgroundColor: 'orange',
+  },
+  firstText: {
+    fontSize: 18,
+    alignSelf: 'center',
+  },
+  inputText: {
+    alignSelf: 'center',
+    fontSize: 18,
+    textAlign: 'center',
+  }
+});
+
+state = {
+  image: null,
+  strokeColor: Math.random() * 0xffffff,
+  strokeWidth: 8,
+  text: ''
+};
+
+onChangeAsync = async ({ width, height }) => {
+  const options = {
+    format: 'png',
+    quality: 0.1,
+    result: 'file',
+    height,
+    width,
+  };
+  const uri = await Expo.takeSnapshotAsync(this.sketch, options);
+  this.setState({
+    image: { uri },
+    strokeWidth: Math.random() * 30 + 10,
+    strokeColor: Math.random() * 0xffffff,
+  });
+};
+
+onReady = () => {
+  console.log('ready!');
+};
 
 const Success = () => (
   <Container>
-    <Content padder>
-      <Spacer size={30} />
-      <H1>
-        Heading 1
-      </H1>
-      <Spacer size={10} />
-      <Text>
-        Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
-        tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-        malesuada magna mollis euismod. Donec sed odio dui.
-        {' '}
+    <View style={styles.container}>
+      <Text style={styles.firstText}>I certified this to be a true likeness of </Text>
+      <TextInput style={styles.inputName}
+        onChangeText={(text) => this.setState({ text: { text } })}
+        value={this.state.text}
+      >Applicant's name or child</TextInput>
+      <Text style={styles.firstText}>
+        Guarantor's signature:
       </Text>
-
-      <Spacer size={30} />
-      <H2>
-        Heading 2
-      </H2>
-      <Spacer size={10} />
-      <Text>
-        Elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
-        mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-        magna mollis euismod. Donec sed odio dui.
-        {' '}
-      </Text>
-
-      <Spacer size={30} />
-      <H3>
-        Heading 3
-      </H3>
-      <Spacer size={10} />
-      <Text>
-        Elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
-        mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-        magna mollis euismod. Donec sed odio dui.
-        {' '}
-      </Text>
-    </Content>
+      <ExpoPixi.Sketch
+        ref={ref => (this.sketch = ref)}
+        style={styles.sketch}
+        strokeColor={this.state.strokeColor}
+        strokeWidth={this.state.strokeWidth}
+        strokeAlpha={1}
+        onChange={this.onChangeAsync}
+        onReady={this.onReady}
+      />
+      <Image style={styles.image} source={this.state.image} />
+      <Button title="Submit"></Button>
+    </View>
   </Container>
 );
 

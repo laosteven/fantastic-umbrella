@@ -215,18 +215,6 @@ class CameraPage extends React.Component {
                     <Camera style={[{ flex: 1 }]} type={this.state.type} ref={(ref) => { this.camera = ref }}>
                         <View
                             style={{
-                                position: 'absolute',
-                                top: 0,
-                                bottom: 0,
-                                left: 0,
-                                right: 0
-                            }}>
-                            <Image
-                                style={{ opacity: 0.8, alignSelf: 'center', alignItems: 'center' }}
-                                source={require("../../images/overlay_canvas.png")} />
-                        </View>
-                        <View
-                            style={{
                                 flex: 1,
                                 backgroundColor: 'transparent',
                                 flexDirection: 'row',
@@ -241,6 +229,23 @@ class CameraPage extends React.Component {
                                 style={{ flex: 1, paddingBottom: 30, alignSelf: 'flex-end', alignItems: 'center' }}>
                                 <Ionicons style={{ opacity: 0.8 }} name="md-camera" size={52} color="white" />
                             </TouchableOpacity>
+                        </View>
+                        <View
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                flex: 1,
+                                justifyContent: 'center', // Used to set Text Component Vertically Center
+                                alignItems: 'center'
+                            }}
+                        >
+                            <Image
+                                style={{ opacity: 0.8, alignSelf: 'center', justifyContent: 'center', width: "90%", height: "90%" }}
+                                source={require("../../images/overlay_canvas_2x.png")}
+                                resizeMode={Image.resizeMode.cover} />
                         </View>
                     </Camera>
                 </View>
