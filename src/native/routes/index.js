@@ -3,32 +3,14 @@ import { Scene, Tabs, Stack } from 'react-native-router-flux';
 import { Icon } from 'native-base';
 
 import DefaultProps from '../constants/navigation';
-import AppConfig from '../../constants/config';
 
 import RecipesContainer from '../../containers/Recipes';
-import RecipesComponent from '../components/Recipes';
 import RecipeViewComponent from '../components/Recipe';
 
-import SignUpContainer from '../../containers/SignUp';
-import SignUpComponent from '../components/SignUp';
-
-import LoginContainer from '../../containers/Login';
-import LoginComponent from '../components/Login';
-
-import ForgotPasswordContainer from '../../containers/ForgotPassword';
-import ForgotPasswordComponent from '../components/ForgotPassword';
-
-import LocaleContainer from '../../containers/Locale';
-import LocaleComponent from '../components/Locale';
-
-import UpdateProfileContainer from '../../containers/UpdateProfile';
-import UpdateProfileComponent from '../components/UpdateProfile';
-
-import MemberContainer from '../../containers/Member';
-import ProfileComponent from '../components/Profile';
-
 import TipsComponent from '../components/Tips';
-import CameraComponent from '../components/Camera';
+import CameraPageComponent from '../components/CameraPage';
+import CameraPageContainer from '../../containers/CameraPage';
+import SuccessComponent from '../components/Success';
 
 const Index = (
   <Stack hideNavBar>
@@ -46,7 +28,7 @@ const Index = (
           icon={() => <Icon name="camera" {...DefaultProps.icons} />}
           {...DefaultProps.navbarProps}
         >
-          <Scene key="home" component={CameraComponent} />
+          <Scene key="home" component={CameraPageContainer} Layout={CameraPageComponent} />
         </Stack>
 
         <Stack
@@ -59,65 +41,15 @@ const Index = (
         </Stack>
 
         <Stack
-          key="settings"
-          title="SETTINGS"
-          icon={() => <Icon name="settings" {...DefaultProps.icons} />}
+          key="success"
+          title="SUCCESS"
+          icon={() => <Icon name="trophy" {...DefaultProps.icons} />}
           {...DefaultProps.navbarProps}
         >
-          <Scene key="profileHome" component={MemberContainer} Layout={ProfileComponent} />
-          <Scene
-            back
-            key="signUp"
-            title="SIGN UP"
-            {...DefaultProps.navbarProps}
-            component={SignUpContainer}
-            Layout={SignUpComponent}
-          />
-          <Scene
-            back
-            key="login"
-            title="LOGIN"
-            {...DefaultProps.navbarProps}
-            component={LoginContainer}
-            Layout={LoginComponent}
-          />
-          <Scene
-            back
-            key="forgotPassword"
-            title="FORGOT PASSWORD"
-            {...DefaultProps.navbarProps}
-            component={ForgotPasswordContainer}
-            Layout={ForgotPasswordComponent}
-          />
-          <Scene
-            back
-            key="locale"
-            title="CHANGE LANGUAGE"
-            {...DefaultProps.navbarProps}
-            component={LocaleContainer}
-            Layout={LocaleComponent}
-          />
-          <Scene
-            back
-            key="updateProfile"
-            title="UPDATE PROFILE"
-            {...DefaultProps.navbarProps}
-            component={UpdateProfileContainer}
-            Layout={UpdateProfileComponent}
-          />
+          <Scene key="success" component={SuccessComponent}/>
         </Stack>
       </Tabs>
     </Scene>
-
-    <Scene
-      back
-      clone
-      key="recipe"
-      title="RECIPE"
-      {...DefaultProps.navbarProps}
-      component={RecipesContainer}
-      Layout={RecipeViewComponent}
-    />
   </Stack>
 );
 
