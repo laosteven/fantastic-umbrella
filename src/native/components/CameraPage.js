@@ -1,9 +1,11 @@
 import React from 'react';
 import { Container } from 'native-base';
-import { View, TouchableOpacity, Image } from 'react-native';
+import { View, TouchableOpacity, Image, NativeModules, ImageEditor, ImageStore } from 'react-native';
 import { Camera } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
+import firebaseConfig from '../../constants/firebase';
+import { Firebase } from '../../lib/firebase';
 
 class CameraPage extends React.Component {
     static propTypes = {
@@ -36,14 +38,180 @@ class CameraPage extends React.Component {
                 isLoading: true
             });
 
-            // let photo = this.camera.takePictureAsync();
-            // CameraRoll.saveToCameraRoll(photo, 'photo');
+            const options = {base64:true};
+            this.camera.takePictureAsync({metadata: options}).then(data => {
+                console.log(data);
 
-            this.setState({
-                isLoading: false
+                var data = new FormData();
+                data.append('theFile', { uri: data.uri, name: 'profile_photo.jpg', type: 'image/jpg' });
+            
+                fetch(firebaseConfig.apiUrl + firebaseConfig.apiKey, {
+                    method: 'POST',
+                    body: data
+                })
+                    .then((response) => response.json())
+                    .then((responseJson) => {
+            
+                        alert(JSON.stringify(responseJson))
+                        alert(responseJson)
+            
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        alert(error)
+                    });
+
+                // const metadata = { contentType: 'image/jpeg' };
+                // const task = ref.child('test').put(data.uri, metadata);
+                // task
+                //     .then(snapshot => snapshot.ref.getDownloadURL())
+                //     .then(url => console.log(url))
+                //     .catch((e) => {
+                //         console.log(e);
+                //     });
+                
+                // Image.getSize(data.uri, (width, height) => {
+                //     let imageSettings = {
+                //         offset: { x: 0, y: 0 },
+                //         size: { width: width, height: height }
+                //     };
+                //     ImageEditor.cropImage(data.uri, imageSettings, (uri) => {
+                //         ImageStore.getBase64ForTag(uri, (base64) => {
+                //             fetch(firebaseConfig.apiUrl + firebaseConfig.apiKey, {
+                //                 method: 'POST',
+                //                 headers: {
+                //                   Accept: 'application/json',
+                //                   'Content-Type': 'multipart/form-data',
+                //                 },
+                //                 body: JSON.stringify({
+                //                     "requests": [
+                //                         {
+                //                             "image": {
+                //                                 "content": 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYXVTbxmHQuOogxDeNx7U6z7neHX4kOQPZEBLG5nzQZoMMhkFN'
+                //                             },
+                //                             "features": [
+                //                                 {
+                //                                     "type":"FACE_DETECTION",
+                //                                     "maxResults": 10
+                //                                 }
+                //                             ]
+                //                         }
+                //                     ]
+                //                 })
+                //             }).done((response) => {
+                //                 console.log(response);
+                //                 // let json = response.json();
+
+                //             }, (err) => {
+                //                 console.error('promise rejected')
+                //                 console.error(err)
+                //             });
+                //         }, e => console.warn("getBase64ForTag: ", e))
+                //     }, e => console.warn("cropImage: ", e))
+                // })
+
+                // ImageStore.getBase64ForTag(data.uri, (base64) => {
+                //     console.log(base64);
+                //     fetch(firebaseConfig.apiUrl + firebaseConfig.apiKey, {
+                //         method: 'POST',
+                //         body: JSON.stringify({
+                //             "requests": [
+                //                 {
+                //                     "image": {
+                //                         "content": base64
+                //                     },
+                //                     "features": [
+                //                         {
+                //                             "type": "LABEL_DETECTION"
+                //                         }
+                //                     ]
+                //                 }
+                //             ]
+                //         })
+                //     }).then((response) => {
+                //         console.log(response);
+                //         return response.json();
+                //     }, (err) => {
+                //         console.error('promise rejected')
+                //         console.error(err)
+                //     });
+                // }, (reason) => console.error(reason));
+
+                // console.log(data);
+
+                // const image = {
+                //     uri: data.uri,
+                //     type: 'image/jpeg',
+                //     name: 'img' + '-' + Date.now() + '.jpg'
+                // }
+                // const imgBody = new FormData();
+                // imgBody.append('image', image);
+                // fetch(firebaseConfig.apiUrl + firebaseConfig.apiKey, {
+                //     method: 'POST',
+                //     body: JSON.stringify({
+                //         "requests": [
+                //             {
+                //                 "image": {
+                //                     "content": data
+                //                 },
+                //                 "features": [
+                //                     {
+                //                         "type": "LABEL_DETECTION"
+                //                     }
+                //                 ]
+                //             }
+                //         ]
+                //     })
+                // }).then((response) => {
+                //     console.log(response)
+                //     return response.json();
+                // }, (err) => {
+                //     console.error('promise rejected')
+                //     console.error(err)
+                // });
+
+                // NativeModules.RNImageToBase64.getBase64String(data.uri, (err, base64) => {
+                //     if (err) {
+                //         console.error(err)
+                //     }
+                //     console.log(base64);
+
+                //     let result = this.sendToGoogleCloud(base64);
+                //     console.log(result);
+
+                //     this.setState({
+                //         isLoading: false
+                //     });
+                // });
             });
+
         }
     };
+
+    sendToGoogleCloud = (base64) => {
+        fetch(FirebaseRef.apiUrl + FirebaseRef.apiKey, {
+            method: 'POST',
+            body: JSON.stringify({
+                "requests": [
+                    {
+                        "image": {
+                            "content": base64
+                        },
+                        "features": [
+                            {
+                                "type": "LABEL_DETECTION"
+                            }
+                        ]
+                    }
+                ]
+            })
+        }).then((response) => {
+            return response.json();
+        }, (err) => {
+            console.error('promise rejected')
+            console.error(err)
+        });
+    }
 
     render() {
         return (
