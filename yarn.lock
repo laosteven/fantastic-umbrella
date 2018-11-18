@@ -9876,6 +9876,13 @@ react-native-branch@2.2.5:
   version "2.2.5"
   resolved "https://registry.npmjs.org/react-native-branch/-/react-native-branch-2.2.5.tgz#4074dd63b4973e6397d9ce50e97b57c77a518e9d"
 
+react-native-camera@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/react-native-camera/-/react-native-camera-1.4.1.tgz#d962658917cc94d1f83de61a095aa1521f5f1cbc"
+  dependencies:
+    lodash "^4.17.10"
+    prop-types "^15.6.2"
+
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/react-native-dismiss-keyboard/-/react-native-dismiss-keyboard-1.0.0.tgz#32886242b3f2317e121f3aeb9b0a585e2b879b49"
