@@ -28,7 +28,8 @@ import MemberContainer from '../../containers/Member';
 import ProfileComponent from '../components/Profile';
 
 import TipsComponent from '../components/Tips';
-import CameraComponent from '../components/Camera';
+import CameraPageComponent from '../components/CameraPage';
+import CameraPageContainer from '../../containers/CameraPage';
 
 const Index = (
   <Stack hideNavBar>
@@ -46,7 +47,7 @@ const Index = (
           icon={() => <Icon name="camera" {...DefaultProps.icons} />}
           {...DefaultProps.navbarProps}
         >
-          <Scene key="home" component={CameraComponent} />
+          <Scene key="home" component={CameraPageContainer} Layout={CameraPageComponent} />
         </Stack>
 
         <Stack
