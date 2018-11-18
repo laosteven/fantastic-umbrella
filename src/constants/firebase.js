@@ -1,5 +1,6 @@
 export default {
-  apiKey: "AIzaSyDE6mfEdVZk7ag8xyQiBFzC6AkWMmUa_J0",
+  apiUrl: "https://vision.googleapis.com/v1/images:annotate?key=",
+  apiKey: "AIzaSyAUTBKdqmia8kPKUu_1GwYtDd87F0Mwj-k",
   authDomain: "fantastic-umbrella.firebaseapp.com",
   databaseURL: "https://fantastic-umbrella.firebaseio.com",
   projectId: "fantastic-umbrella",
