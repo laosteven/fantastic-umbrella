@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from 'native-base';
-import { View, TouchableOpacity, CameraRoll } from 'react-native';
-import { Camera, } from 'expo';
+import { View, TouchableOpacity, Image } from 'react-native';
+import { Camera } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 
@@ -52,6 +52,18 @@ class CameraPage extends React.Component {
                     <Camera style={[{ flex: 1 }]} type={this.state.type} ref={(ref) => { this.camera = ref }}>
                         <View
                             style={{
+                                position: 'absolute',
+                                top: 0,
+                                bottom: 0,
+                                left: 0,
+                                right: 0
+                            }}>
+                            <Image
+                                style={{ opacity: 0.8, alignSelf: 'center', alignItems: 'center' }}
+                                source={require("../../images/overlay_canvas.png")} />
+                        </View>
+                        <View
+                            style={{
                                 flex: 1,
                                 backgroundColor: 'transparent',
                                 flexDirection: 'row',
@@ -59,12 +71,12 @@ class CameraPage extends React.Component {
                             <TouchableOpacity
                                 style={{ flex: 1, paddingBottom: 30, alignSelf: 'flex-end', alignItems: 'center' }}
                                 onPress={this.flip}>
-                                <Ionicons name="md-reverse-camera" size={52} color="white" />
+                                <Ionicons style={{ opacity: 0.8 }} name="md-reverse-camera" size={52} color="white" />
                             </TouchableOpacity>
                             <TouchableOpacity
                                 onPress={this.snap}
                                 style={{ flex: 1, paddingBottom: 30, alignSelf: 'flex-end', alignItems: 'center' }}>
-                                <Ionicons name="md-camera" size={52} color="white" />
+                                <Ionicons style={{ opacity: 0.8 }} name="md-camera" size={52} color="white" />
                             </TouchableOpacity>
                         </View>
                     </Camera>
