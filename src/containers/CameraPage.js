@@ -32,7 +32,6 @@ class CameraPage extends Component {
     }
 }
 
-
 const mapStateToProps = state => ({
     isLoading: state.status.loading || false,
 });

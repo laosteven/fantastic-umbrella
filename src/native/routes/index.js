@@ -4,9 +4,6 @@ import { Icon } from 'native-base';
 
 import DefaultProps from '../constants/navigation';
 
-import RecipesContainer from '../../containers/Recipes';
-import RecipeViewComponent from '../components/Recipe';
-
 import TipsComponent from '../components/Tips';
 import CameraPageComponent from '../components/CameraPage';
 import CameraPageContainer from '../../containers/CameraPage';
@@ -37,16 +34,16 @@ const Index = (
           icon={() => <Icon name="book" {...DefaultProps.icons} />}
           {...DefaultProps.navbarProps}
         >
-          <Scene key="recipes" component={TipsComponent} />
+          <Scene key="tips" component={TipsComponent} />
         </Stack>
 
         <Stack
-          key="success"
-          title="SUCCESS"
+          key="signature"
+          title="SIGNATURE"
           icon={() => <Icon name="trophy" {...DefaultProps.icons} />}
           {...DefaultProps.navbarProps}
         >
-          <Scene key="success" component={SuccessComponent}/>
+          <Scene key="signature" component={SuccessComponent} />
         </Stack>
       </Tabs>
     </Scene>

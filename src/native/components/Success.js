@@ -76,7 +76,7 @@ const Success = () => (
         onReady={this.onReady}
       />
       <Image style={styles.image} source={this.state.image} />
-      <Button title="Submit"></Button>
+      <Button title="Submit" onPress={this.onReady}></Button>
     </View>
   </Container>
 );
